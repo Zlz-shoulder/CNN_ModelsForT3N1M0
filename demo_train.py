@@ -284,8 +284,7 @@ def main():
                     # training
                     _, all_loss, main_loss = sess.run([train_step, loss_all,  loss], feed_dict = { x: img_batch, y: label_batch, Pat_ind: sorted_idx, y1: label_batch1, Pat_ind1: sorted_idx1, 
                                             y2: label_batch2, Pat_ind2: sorted_idx2, y3: label_batch3, Pat_ind3: sorted_idx3, training_flag: True})
-                    # print('*****')
-                    # print(pred)
+
                     train_risk += main_loss
                     epoch_loss += all_loss
 
