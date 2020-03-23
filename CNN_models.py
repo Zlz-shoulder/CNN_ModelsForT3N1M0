@@ -183,10 +183,5 @@ class SE_ResNeXt():
         x = self.SE_residual_layer(x, out_dim = 512, layer_num = '4', res_block = 3)
 
         x = Global_Average_Pooling(x)
-        x = flatten(x)
-        x = Linear(x)
-        
-        fc1 =  _create_fc_layer(x, 128, 'tanh', 'FC_layer1', dropout_rate)
-        output = _create_fc_layer(fc1, 1, 'tanh', 'FC_layer2', 1.0)
 
-        return output
+        return x
