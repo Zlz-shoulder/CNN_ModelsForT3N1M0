@@ -155,13 +155,13 @@ def _create_fc_layer(x, output_dim, activation, scope, keep_prob,is_training):
     
         return layer_out
 def GetWeight(ind0, ind1):
-    #get the corresponding labels about DFS
+    #get the corresponding target about DFS
     DFS_time_0 = np.array(tra_msag_0.iloc[ind0, 4], np.float32)
     DFS_time_1 = np.array(tra_msag_1.iloc[ind1, 4], np.float32)
     DFS_time = np.concatenate([DFS_time_0,DFS_time_1],axis=0)
     sorted_idx, label_batch = _prepare_surv_data(DFS_time, y_label)
     
-    #get the corresponding labels about OS
+    #get the corresponding target about OS
     OS_time_0 = np.array(tra_msag_0.iloc[ind0, 2], np.float32)
     OS_time_1 = np.array(tra_msag_1.iloc[ind1, 2], np.float32)
     y_label_0 = np.array(tra_msag_0.iloc[ind0, 3], np.int32)
@@ -170,7 +170,7 @@ def GetWeight(ind0, ind1):
     OS_time = np.concatenate([OS_time_0,OS_time_1],axis=0)
     sorted_idx1, label_batch1 = _prepare_surv_data(OS_time, y_label_OS)
 
-    #get the corresponding labels about DMFS
+    #get the corresponding target about DMFS
     DMFS_time_0 = np.array(tra_msag_0.iloc[ind0, 6], np.float32)
     DMFS_time_1 = np.array(tra_msag_1.iloc[ind1, 6], np.float32)
     y_label_0 = np.array(tra_msag_0.iloc[ind0, 7], np.int32)
@@ -179,7 +179,7 @@ def GetWeight(ind0, ind1):
     DMFS_time = np.concatenate([DMFS_time_0,DMFS_time_1],axis=0)
     sorted_idx2, label_batch2 = _prepare_surv_data(DMFS_time, y_label_DM)
 
-    #get the corresponding labels about LRFS
+    #get the corresponding target about LRFS
     LRFS_time_0 = np.array(tra_msag_0.iloc[ind0, 8], np.float32)
     LRFS_time_1 = np.array(tra_msag_1.iloc[ind1, 8], np.float32)
     y_label_0 = np.array(tra_msag_0.iloc[ind0, 9], np.int32)
