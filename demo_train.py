@@ -21,8 +21,8 @@ weight_decay = 5e-5
 momentum = 0.95
 base_learning_rate = 1e-3
 batch_size = 64
-r0 = 40
-r1 = batch_size - r0
+r0 = 40 #number of censored samples (not experiencing DFS)
+r1 = batch_size - r0 #number of uncensored samples (experiencing DFS)
 y_label = np.zeros(batch_size)
 y_label[r0:] = 1
 
