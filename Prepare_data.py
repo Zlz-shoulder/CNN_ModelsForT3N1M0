@@ -96,11 +96,11 @@ def data_aug(v0,v1):
     y_max = np.max(y_coord)
     x_center = int((x_min+x_max)/2)
     y_center = int((y_min+y_max)/2)
-    x_center,y_center = shuffe_center(x_center, y_center, order = np.random.randint(5))
+    x_center,y_center = shuffe_center(x_center, y_center, order = np.random.randint(5)) #the center of the tumor
     x_start = int(x_center-img_width/2)
     y_start = int(y_center-img_heigh/2)
-    v0 = v0[x_start:x_start+img_width,y_start:y_start + img_heigh]
-    v1 = v1[x_start:x_start+img_width,y_start:y_start + img_heigh]
+    v0 = v0[x_start:x_start+img_width,y_start:y_start + img_heigh] #tumor-centered image patch cropped from the MR slice
+    v1 = v1[x_start:x_start+img_width,y_start:y_start + img_heigh] #corresponding mask
 #    Feature normalization
     v0 = np.clip(v0, 0.0, 2048)
     v0 = v0/2048
