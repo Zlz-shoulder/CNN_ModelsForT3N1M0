@@ -72,6 +72,10 @@ def gaussBlur(img, sigma, H, W, _boundary='fill', _fillvalue=0):
     return gaussBlur_xy
 
 def data_aug(v0,v1):
+    """
+    v0: MR slice
+    v1: the corresponding mask of the MR slice
+    """"
     v0 = v0.astype(np.float32)
 #    filp
     if np.random.randint(2) == 1:
