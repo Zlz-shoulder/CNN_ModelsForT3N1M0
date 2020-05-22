@@ -150,10 +150,10 @@ def preprocess(img_path_list,is_train = True):
             y_max = np.max(y_coord)
             x_center = int((x_min+x_max)/2)
             y_center = int((y_min+y_max)/2)
-            x_start = int(x_center-img_width/2)
+            x_start = int(x_center-img_width/2) #the center of the tumor
             y_start = int(y_center-img_heigh/2)
-            v0 = v0[x_start:x_start+img_width,y_start:y_start + img_heigh]
-            v1 = v1[x_start:x_start+img_width,y_start:y_start + img_heigh]
+            v0 = v0[x_start:x_start+img_width,y_start:y_start + img_heigh] #tumor-centered image patch cropped from the MR slice
+            v1 = v1[x_start:x_start+img_width,y_start:y_start + img_heigh] #corresponding mask
             #build a mini-batch
             img = np.stack([v0,v1],axis = 0)
             img = img.transpose(2,1,0)
