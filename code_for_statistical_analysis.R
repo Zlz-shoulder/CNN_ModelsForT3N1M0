@@ -140,7 +140,7 @@ dev.new()
 plot(t.1$FP, t.1$TP, type="l", xlim=c(0,1), ylim=c(0,1),xlab = c("False positive rate (%)"),ylab="True positive rate (%)"
      , lwd = 2, cex.lab=1.5, col = "#000000")
 legend("bottomright", legend=c(x1,x2,x3,x4,x5), col =  c("#000000","#56B4E9", "#009E73", "#F0E442", "red"),lwd=2, cex=1.5)
-lines(c(0,1), c(0,1), lty = 6,col = rgb(113/255,150/255,159/255),lwd=2.0)#»­45¶È»ù
+lines(c(0,1), c(0,1), lty = 6,col = rgb(113/255,150/255,159/255),lwd=2.0)#ç”»45åº¦åŸº
 lines(t.2$FP,t.2$TP,lty = 1,lwd =2, col = "#56B4E9")
 lines(t.3$FP,t.3$TP,lty = 1,lwd =2, col = "#009E73") 
 lines(t.4$FP,t.4$TP,lty = 1,lwd =2, col = "#F0E442")
@@ -167,7 +167,7 @@ dev.new()
 plot(t.1$FP, t.1$TP, type="l", xlim=c(0,1), ylim=c(0,1),xlab = c("False positive rate (%)"),ylab="True positive rate (%)"
      , lwd = 2, cex.lab=1.5, col = "#000000")
 legend("bottomright", legend=c(x1,x2,x3,x4,x5), col =  c("#000000","#56B4E9", "#009E73", "#F0E442", "red"),lwd=2, cex=1.5)
-lines(c(0,1), c(0,1), lty = 6,col = rgb(113/255,150/255,159/255),lwd=2.0)#»­45¶È»ù
+lines(c(0,1), c(0,1), lty = 6,col = rgb(113/255,150/255,159/255),lwd=2.0)#ç”»45åº¦åŸº
 lines(t.2$FP,t.2$TP,lty = 1,lwd =2, col = "#56B4E9")
 lines(t.3$FP,t.3$TP,lty = 1,lwd =2, col = "#009E73") 
 lines(t.4$FP,t.4$TP,lty = 1,lwd =2, col = "#F0E442")
@@ -179,7 +179,7 @@ library(lattice);library(survival);library(Formula);library(ggplot2);library(Hmi
 ddist0 <- datadist(trainData_EBV)
 options(datadist='ddist0')
 f <- cph(Surv(DFS.time, DFS.event) ~ age + LDH + EBV_4k + DL_pred_T1 + DL_pred_T2 + DL_pred_T1C, surv = TRUE, x = T, y = T, data = trainData_EBV)
-surv.prob <- Survival(f) # ¹¹½¨Éú´æ¸ÅÂÊº¯Êý
+surv.prob <- Survival(f) # æž„å»ºç”Ÿå­˜æ¦‚çŽ‡å‡½æ•°
 nom <- nomogram(f, fun=list(function(x) surv.prob(1080, x),function(x) surv.prob(1800, x)),
                 funlabel=c("3-year DFS rate","5-year DFS rate"),
                 fun.at=c(0.95,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0),
