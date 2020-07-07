@@ -212,6 +212,7 @@ def main():
         Pat_ind3 = tf.placeholder(tf.int32, [None,], name = 'Pat_ind-3')
 
         training_flag = tf.placeholder(tf.bool)
+        global_step = tf.placeholder(tf.int32, [])
         pool_avg = SE_ResNeXt(x, training = training_flag).model
         pool_avg = tf.contrib.layers.flatten(pool_avg)
         # saver1 = tf.train.Saver()
@@ -239,10 +240,11 @@ def main():
             pred_value = tf.reduce_max(output, 0)
             pred_value = tf.squeeze(pred_value)
 
-        global_step = tf.Variable(0)
         # learning_rate = tf.train.exponential_decay(base_learning_rate, global_step,num_batchs * 5, 0.9, staircase = True)
         optimizer = tf.train.MomentumOptimizer(learning_rate = base_learning_rate, momentum = momentum, use_nesterov = True)
-        train_step = optimizer.minimize(loss_all, global_step = global_step) #,var_list = tf.get_collection("var_fc")
+        update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+        with tf.control_dependencies(update_ops):
+            train_step = optimizer.minimize(loss_all) #,var_list = tf.get_collection("var_fc")
 
         saver = tf.train.Saver(max_to_keep = 20)
         # Start Tensorflow session
@@ -256,6 +258,7 @@ def main():
 #            saver1.restore(sess, "../ICT-NPC-new/checkpoint_path/pretrained-model_epoch-5")
             best_val_C_index = 0.0
             num_up = 0
+            gsp = 0
             # Loop over number of epochs
             for epoch in range(num_epochs):
             
@@ -266,6 +269,7 @@ def main():
                 train_risk = 0.0
                 epoch_loss = 0.0
                 for i in range(num_batchs):
+                    gsp += 1
                     ind0 = tra_Pat_ind_0[i*r0:(i+1)*r0]
                     ind1 = tra_Pat_ind_1[i*r1:(i+1)*r1]
                     img_path,label_batch,label_batch1,label_batch2,label_batch3,sorted_idx,sorted_idx1,sorted_idx2,sorted_idx3 = GetWeight(ind0,ind1)
@@ -282,7 +286,7 @@ def main():
                         vd_img.append(instance_batch[IID,:,:,:])
                     img_batch = np.stack(vd_img)
                     # training
-                    _, all_loss, main_loss = sess.run([train_step, loss_all,  loss], feed_dict = { x: img_batch, y: label_batch, Pat_ind: sorted_idx, y1: label_batch1, Pat_ind1: sorted_idx1, 
+                    _, all_loss, main_loss = sess.run([train_step, loss_all,  loss], feed_dict = { global_step: gsp, x: img_batch, y: label_batch, Pat_ind: sorted_idx, y1: label_batch1, Pat_ind1: sorted_idx1, 
                                             y2: label_batch2, Pat_ind2: sorted_idx2, y3: label_batch3, Pat_ind3: sorted_idx3, training_flag: True})
 
                     train_risk += main_loss
